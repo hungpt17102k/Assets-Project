@@ -1,6 +1,5 @@
 public enum SoundClips
 {
-	Split,
-	Bounce,
-	Click,
+	Sound_01,
+	Sound_02,
 }

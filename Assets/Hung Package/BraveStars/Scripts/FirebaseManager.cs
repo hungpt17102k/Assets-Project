@@ -7,11 +7,15 @@ using UnityEngine;
 #if ADS
 using Firebase;
 using Firebase.Extensions;
+#endif
 
 public class FirebaseManager : MonoBehaviour
 {
     public static FirebaseManager Instance;
+
+    #if ADS
     private FirebaseApp app;
+    #endif
 
     void Awake()
     {
@@ -22,6 +26,7 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
+    #if ADS
     void Start()
     {
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
@@ -136,6 +141,6 @@ public class FirebaseManager : MonoBehaviour
     {
         Firebase.Analytics.FirebaseAnalytics.LogEvent(parameter, message, value);
     }
-}
 
-#endif
+    #endif
+}

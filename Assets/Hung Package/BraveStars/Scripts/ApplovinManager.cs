@@ -5,9 +5,12 @@ using UnityEngine;
 
 #if ADS
 using AppsFlyerSDK;
+#endif
 
 public class ApplovinManager : MonoBehaviour
 {
+#if ADS
+
 	// AppLovin Max SDK Key
 	private const string MAX_SdkKey =
 		"7yuxQQv3-BNp4sB7KaiNkH-xtLw_TFb87GJ-xZZbU2WIawMF8Se3a5y9PC6rC9iwEuTkiOriUlvTFtx6gOJd30";
@@ -430,6 +433,6 @@ public class ApplovinManager : MonoBehaviour
 		callback(RewardAdTestMode ? true : MAX_RewardedAdLoaded);
 		RewardedAdListenCallback = callback;
 	}
-}
 
 #endif
+}

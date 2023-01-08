@@ -7,6 +7,10 @@ public class AudioController : MonoBehaviour
 {
     private static AudioController audioController;
 
+    // Key for save load value
+    private const string AUDIO_SETTING_SOUND = "Audio_Sound";
+    private const string AUDIO_SETTING_MUSIC = "Audio_Music";
+
     // Sound list and list music
     [Space(10)]
     public List<Sound> Sounds;
@@ -21,6 +25,9 @@ public class AudioController : MonoBehaviour
     private List<AudioSource> activeSounds = new List<AudioSource>();
     private List<AudioSource> activeMusic = new List<AudioSource>();
 
+    private bool _soundState;
+    private bool _musicState;
+
     //---------------------------Audio Event----------------------------------
 
 
@@ -30,25 +37,18 @@ public class AudioController : MonoBehaviour
         audioController = this;
 
         CreateAudioSourceGO();
+
+        LoadAudioSetting();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            PlaySound(SoundClips.Split);
+            PlaySound(SoundClips.Sound_01);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            PlaySound(SoundClips.Click);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlaySound(SoundClips.Bounce);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayMusic(MusicClips.Music_Test);
+            PlaySound(SoundClips.Sound_02);
         }
     }
 
@@ -89,23 +89,22 @@ public class AudioController : MonoBehaviour
 
     private static void SetSourceDefaultSettings(AudioSource source, AudioType type = AudioType.Sound)
     {
-        float volume = 1f;
-
         if (type == AudioType.Sound)
         {
             source.loop = false;
+            source.mute = !audioController._soundState;
         }
         else if (type == AudioType.Music)
         {
             source.loop = true;
+            source.mute = !audioController._musicState;
         }
 
         source.clip = null;
 
-        source.volume = volume;
+        source.volume = 1f;
         source.pitch = 1.0f;
         source.spatialBlend = 0; // 2D Sound
-        source.mute = false;
         source.playOnAwake = false;
         source.outputAudioMixerGroup = null;
     }
@@ -180,6 +179,38 @@ public class AudioController : MonoBehaviour
     private Music GetMusic(MusicClips musicClip)
     {
         return Musics.Find(m => m.musicName == musicClip.ToString());
+    }
+
+    // Save and load
+    private void SaveAudioSetting()
+    {
+        PrefsSettings.SetBool(AUDIO_SETTING_SOUND, _soundState);
+        PrefsSettings.SetBool(AUDIO_SETTING_MUSIC, _musicState);
+    }
+
+    private void LoadAudioSetting()
+    {
+        // Load sound
+        if(PlayerPrefs.HasKey(AUDIO_SETTING_SOUND))
+        {
+            _soundState = PrefsSettings.GetBool(AUDIO_SETTING_SOUND);
+        }
+        else
+        {
+            _soundState = true;
+            PrefsSettings.SetBool(AUDIO_SETTING_SOUND, _soundState);
+        }
+
+        // Load music
+        if(PlayerPrefs.HasKey(AUDIO_SETTING_MUSIC))
+        {
+            _musicState = PrefsSettings.GetBool(AUDIO_SETTING_MUSIC);
+        }
+        else
+        {
+            _musicState = true;
+            PrefsSettings.SetBool(AUDIO_SETTING_MUSIC, _musicState);
+        }
     }
 
     //====================Public Function===================
@@ -279,13 +310,13 @@ public class AudioController : MonoBehaviour
 
     public static void PlayRandomMusic()
     {
-        if (audioController.Musics.Count > 0) 
+        if (audioController.Musics.Count > 0)
         {
             MusicClips musicClip = Extensions.RandomEnumValue<MusicClips>();
 
             PlayMusic(musicClip);
         }
-            
+
     }
 
     // Releasing all active sounds.
@@ -324,12 +355,32 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    // Stop all active streams
-    public static void ReleaseStreams()
+    public static void TurnOnSound()
     {
-        ReleaseMusic();
+        audioController._soundState = true;
+        audioController.SaveAudioSetting();
+    }
+
+    public static void TurnOffSound()
+    {
+        audioController._soundState = false;
+        audioController.SaveAudioSetting();
+
         ReleaseSounds();
     }
 
+    public static void TurnOnMusic()
+    {
+        audioController._musicState = true;
+        audioController.SaveAudioSetting();
+    }
+
+    public static void TurnOffMusic()
+    {
+        audioController._musicState = false;
+        audioController.SaveAudioSetting();
+
+        ReleaseMusic();
+    }
 
 }
