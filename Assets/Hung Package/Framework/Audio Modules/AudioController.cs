@@ -41,16 +41,16 @@ public class AudioController : MonoBehaviour
         LoadAudioSetting();
     }
 
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlaySound(SoundClips.Sound_01);
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlaySound(SoundClips.Sound_02);
-        }
-    }
+    // private void Update() {
+    //     if(Input.GetKeyDown(KeyCode.Alpha1))
+    //     {
+    //         PlaySound(SoundClips.Sound_01);
+    //     }
+    //     else if(Input.GetKeyDown(KeyCode.Alpha2))
+    //     {
+    //         PlaySound(SoundClips.Sound_02);
+    //     }
+    // }
 
     //-----------------------------Audio Controller Functions--------------------------------
 
@@ -320,7 +320,7 @@ public class AudioController : MonoBehaviour
     }
 
     // Releasing all active sounds.
-    public static void ReleaseSounds()
+    private static void ReleaseSounds()
     {
         int activeStreamsCount = audioController.activeSounds.Count - 1;
         for (int i = activeStreamsCount; i >= 0; i--)
@@ -332,7 +332,7 @@ public class AudioController : MonoBehaviour
     }
 
     // Releasing all active music.
-    public static void ReleaseMusic()
+    private static void ReleaseMusic()
     {
         int activeMusicCount = audioController.activeMusic.Count - 1;
         for (int i = activeMusicCount; i >= 0; i--)
