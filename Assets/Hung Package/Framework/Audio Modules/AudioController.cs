@@ -28,9 +28,6 @@ public class AudioController : MonoBehaviour
     private bool _soundState;
     private bool _musicState;
 
-    //---------------------------Audio Event----------------------------------
-
-
     //---------------------------Unity Functions----------------------------------
     void Awake()
     {
@@ -320,7 +317,7 @@ public class AudioController : MonoBehaviour
     }
 
     // Releasing all active sounds.
-    private static void ReleaseSounds()
+    public static void ReleaseSounds()
     {
         int activeStreamsCount = audioController.activeSounds.Count - 1;
         for (int i = activeStreamsCount; i >= 0; i--)
@@ -332,7 +329,7 @@ public class AudioController : MonoBehaviour
     }
 
     // Releasing all active music.
-    private static void ReleaseMusic()
+    public static void ReleaseMusic()
     {
         int activeMusicCount = audioController.activeMusic.Count - 1;
         for (int i = activeMusicCount; i >= 0; i--)

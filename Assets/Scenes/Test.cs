@@ -6,11 +6,13 @@ using Sirenix.OdinInspector;
 
 public class Test : MonoBehaviour
 {
+    [Title("Alo", horizontalLine: false, bold: true)]
+    public Transform cube;
 
     // Start is called before the first frame update
     void Start()
     {
-        Vibration.Vibrate(100);
+        cube.DOMoveX(2f, 3f);
     }
 
 
