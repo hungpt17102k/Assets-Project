@@ -28,6 +28,21 @@ public class BravestarsAdsManagerEditor : Editor
                                     "\n**IMPORTANT** Enabling ad without doing so will produce compile errors. **IMPORTANT**\n" +
                                     "\n• Do not enable ads in services (Legacy)\n"+
                                     "\n• Platform must be Android/iOS", MessageType.Info);
+        // Button for link download
+        if (GUILayout.Button("Click here for Firebase package"))
+        {
+            Application.OpenURL("https://firebase.google.com/download/unity");
+        }
+
+        if (GUILayout.Button("Click here for Max AppLovin package"))
+        {
+            Application.OpenURL("https://dash.applovin.com/documentation/mediation/unity/getting-started/integration");
+        }
+
+        if (GUILayout.Button("Click here for AppFlyer package"))
+        {
+            Application.OpenURL("https://github.com/AppsFlyerSDK/appsflyer-unity-plugin/releases");
+        }
 
         adsManager.isAdEnabled = EditorGUILayout.Toggle("Enable Ad", adsManager.isAdEnabled);
 

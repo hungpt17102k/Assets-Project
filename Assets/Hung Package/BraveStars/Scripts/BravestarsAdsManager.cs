@@ -11,7 +11,6 @@ using AppsFlyerSDK;
 #if ADS
 [RequireComponent(typeof(ApplovinManager))]
 #endif
-
 public class BravestarsAdsManager : MonoBehaviour
 {
     public static BravestarsAdsManager Instance;
@@ -90,12 +89,8 @@ public class BravestarsAdsManager : MonoBehaviour
 
     public void ShowReward(Action<bool> callback)
     {
-        // AdjustEvent adj = new AdjustEvent("rewarded_ad_eligible");
-        // Adjust.trackEvent(adj);
-
 #if ADS
         AppsFlyer.sendEvent("rewarded_ad_eligible", null);
-
         GetComponent<ApplovinManager>().ShowRewardedAd(callback);
 #endif
 
@@ -110,17 +105,17 @@ public class BravestarsAdsManager : MonoBehaviour
 
     public void ShowInterstitial(Action callback = null)
     {
-        // AdjustEvent adj = new AdjustEvent("inters_ad_eligible");
-        // Adjust.trackEvent(adj);
 #if ADS
         AppsFlyer.sendEvent("inters_ad_eligible", null);
 #endif
+
         string timeAdsInter = PlayerPrefs.GetString("Ads_Inter_Time");
 
         if(!IsTimeHadPassEnough(timeAdsInter, _timeBtwShowAdInter) || !_hadPlayOneTime) {
             callback?.Invoke();
             return;
         }
+
 #if ADS
         GetComponent<ApplovinManager>().ShowInterstitialDelay(callback, 0);
 #endif

@@ -38,17 +38,6 @@ public class AudioController : MonoBehaviour
         LoadAudioSetting();
     }
 
-    // private void Update() {
-    //     if(Input.GetKeyDown(KeyCode.Alpha1))
-    //     {
-    //         PlaySound(SoundClips.Sound_01);
-    //     }
-    //     else if(Input.GetKeyDown(KeyCode.Alpha2))
-    //     {
-    //         PlaySound(SoundClips.Sound_02);
-    //     }
-    // }
-
     //-----------------------------Audio Controller Functions--------------------------------
 
     //====================Private Function===================
