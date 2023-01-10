@@ -7,18 +7,33 @@ using Sirenix.OdinInspector;
 public class Test : MonoBehaviour
 {
     [Title("Alo", horizontalLine: false, bold: true)]
-    public Transform cube;
+    public ListPerson listPerson = new ListPerson();
 
     // Start is called before the first frame update
     void Start()
     {
-        cube.DOMoveX(2f, 3f);
+        // PrefsSettings.SaveListJson<ListPerson>(listPerson, "PERSON_JSON");
+
+        ListPerson l = PrefsSettings.LoadJson<ListPerson>("PERSON_JSON");
+
+        print(l.listP[1].name);
     }
+}
 
+[System.Serializable]
+public class ListPerson
+{
+    public List<Person> listP;
 
-    private IEnumerator TestALO() {
-        yield return new WaitForSeconds(3f);
-
-        print("ALo");
+    public ListPerson()
+    {
+        listP = new List<Person>();
     }
+}
+
+[System.Serializable]
+public class Person
+{
+    public string name;
+    public string age;
 }

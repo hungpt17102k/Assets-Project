@@ -1,5 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 using System;
+using System.IO;
 
 public static class PrefsSettings
 {
@@ -66,5 +69,32 @@ public static class PrefsSettings
         double value = Convert.ToDouble(PlayerPrefs.GetString(key));
 
         return value;
+    }
+
+    //===================Save Load Json File==================
+    public static void SaveJson<T>(T obj, string nameFile) 
+    {
+        nameFile += ".json";
+        string pathFile = Path.Combine(Application.persistentDataPath, nameFile);
+
+        var outputJson = JsonUtility.ToJson(obj);
+        File.WriteAllText(pathFile, outputJson);
+    }
+
+    public static T LoadJson<T>(string nameFile)
+    {
+        nameFile += ".json";
+        string pathFile = Path.Combine(Application.persistentDataPath, nameFile);
+
+        if (!File.Exists(pathFile))
+        {
+            Debug.Log(System.String.Format("File {0} not found", pathFile));
+            return default(T);
+        }
+
+        var input = File.ReadAllText(pathFile);
+        var obj = JsonUtility.FromJson<T>(input);
+
+        return obj;
     }
 }
