@@ -12,11 +12,14 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // PrefsSettings.SaveListJson<ListPerson>(listPerson, "PERSON_JSON");
+        
+    }
 
-        ListPerson l = PrefsSettings.LoadJson<ListPerson>("PERSON_JSON");
-
-        print(l.listP[1].name);
+    private void Update() {
+        if(Input.anyKeyDown)
+        {
+            PoolController.ReuseObject(PoolKey.Cube, Vector3.down, Quaternion.identity);
+        }
     }
 }
 
