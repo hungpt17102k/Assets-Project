@@ -3,10 +3,11 @@ Shader "Unlit/SimpleShader"
     Properties
     {
         // _MainTex ("Texture", 2D) = "white" {}
+
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType" = "Opaque" }
 
         Pass
         {
@@ -28,6 +29,7 @@ Shader "Unlit/SimpleShader"
                 // float4 tangent : TANGENT;
                 
                 // float uv1 : TEXCOORD1;
+
             };
 
             struct VertexOutput
@@ -41,7 +43,7 @@ Shader "Unlit/SimpleShader"
             // float4 _MainTex_ST;
 
             // Vertext shader
-            VertexOutput vert (VertextInput v)
+            VertexOutput vert(VertextInput v)
             {
                 VertexOutput o;
                 o.uv0 = v.uv0;
@@ -50,7 +52,7 @@ Shader "Unlit/SimpleShader"
                 return o;
             }
 
-            float4 frag (VertexOutput o) : SV_Target
+            float4 frag(VertexOutput o) : SV_Target
             {
                 float2 uv = o.uv0;
                 float3 normals = o.normal;
