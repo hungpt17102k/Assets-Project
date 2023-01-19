@@ -55,8 +55,16 @@ Shader "Unlit/SimpleShader"
             float4 frag(VertexOutput o) : SV_Target
             {
                 float2 uv = o.uv0;
-                float3 normals = o.normal;
-                return float4(normals, 0);
+
+                float3 lightDir = normalize(float3(1, 1, 1));
+                float lightFallOff = saturate(dot(lightDir, o.normal));
+                float3 lightColor = float3(0.9, 0.82, 0.7);
+
+                float3 diffuseLight = lightColor * lightFallOff;
+
+                float3 ambientLight = float3( 0.2, 0.35, 0.4);
+                
+                return float4(ambientLight + diffuseLight, 0);
             }
             ENDCG
         }
