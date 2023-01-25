@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(BravestarsAdsManager))]
-public class BravestarsAdsManagerEditor : Editor
+[CustomEditor(typeof(AdsManager))]
+public class AdsManagerEditor : Editor
 {
     string adsDefine = "ADS";
 
-    BravestarsAdsManager adsManager;
+    AdsManager adsManager;
 
     BuildTarget activeBuildTarget = BuildTarget.NoTarget;
 
     public override void OnInspectorGUI()
     {
-         adsManager = (BravestarsAdsManager)target;
+         adsManager = (AdsManager)target;
 
         if (EditorUserBuildSettings.activeBuildTarget != activeBuildTarget)
         {

@@ -11,9 +11,9 @@ using AppsFlyerSDK;
 #if ADS
 [RequireComponent(typeof(ApplovinManager))]
 #endif
-public class BravestarsAdsManager : MonoBehaviour
+public class AdsManager : MonoBehaviour
 {
-    public static BravestarsAdsManager Instance;
+    public static AdsManager Instance;
 
     [HideInInspector]
     public bool isAdEnabled;
